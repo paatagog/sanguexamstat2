@@ -16,6 +16,9 @@ public class MarkItem {
         return "(" + String.valueOf(id) + ";" + studentId + ";" + studentName + ";" + personalNumber + ";" + faculty + ";" + disciplin + ";" + mark + ")";
     }
 
+    public String toStudentMark() {
+        return "(" + studentName + ";" + mark + ")";
+    }
 
     public long getId() {
         return id;
