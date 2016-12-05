@@ -31,12 +31,12 @@ public class ProblematicDisciplins {
         try (PrintWriter out = new PrintWriter(fileName)) {
             for (DisciplinData d : dds) {
                 if (
-                        ((((double) d.countOfInterval(1, 11)) / d.getMis().size()) > (30.0 / 100))
+                        ((((double) d.countOfInterval(1, 11)) / d.getMis().size()) > (50.0 / 100))
                         && (d.getMis().size() != 1)
                         ) {
                     out.println(d);
                     out.print("count(0)=" + d.countOfInterval(0, 0) + ";");
-                    out.println("count(1-11)=" + d.countOfInterval(1, 12) + ";");
+                    out.println("count(1-11)=" + d.countOfInterval(1, 11) + ";");
                     out.println("");
                     out.println("");
                 }
