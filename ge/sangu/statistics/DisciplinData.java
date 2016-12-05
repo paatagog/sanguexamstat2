@@ -38,4 +38,8 @@ public class DisciplinData {
         }
         return count;
     }
+
+    public double failRate(boolean includeZero) {
+        return (double)countOfInterval(includeZero?0:1, 11) / mis.size();
+    }
 }
