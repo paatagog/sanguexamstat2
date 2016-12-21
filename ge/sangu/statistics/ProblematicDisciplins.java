@@ -5,9 +5,7 @@ import ge.sangu.MarkItem;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by amigo on 3/12/2016.
@@ -58,8 +56,7 @@ public class ProblematicDisciplins {
         printToFile(fileName, sb.toString());
     }
 
-    private static void viewSortedFailRate(String fileName, List<DisciplinData> dds) {
-        boolean includeZero = true;
+    private static void viewSortedFailRate(String fileName, List<DisciplinData> dds, boolean includeZero) {
         List<DisciplinData> sorted = new ArrayList<DisciplinData> ();
         StringBuilder sb = new StringBuilder();
         for (DisciplinData d : dds) {
@@ -71,6 +68,29 @@ public class ProblematicDisciplins {
         Collections.sort(sorted, new FailRateComparator(includeZero));
         for (DisciplinData dd : sorted) {
             sb.append(dd).append("failRate="+dd.failRate(includeZero)+"\n\n");
+        }
+        printToFile(fileName, sb.toString());
+    }
+
+    private static void viewMarkHistogram(String fileName, List<DisciplinData> dds) {
+        Map<Integer, Integer> histogram = new HashMap<Integer, Integer>();
+        for (int i = 0; i <= 30; i++) {
+            histogram.put(i, 0);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (DisciplinData d : dds) {
+            if (d.getMis().size() == 1) {
+                continue;
+            }
+            for (MarkItem mi: d.getMis()) {
+                histogram.put(mi.getMark(), histogram.get(mi.getMark()) + 1);
+            }
+        }
+        for (int i = 0; i <= 30; i++) {
+            sb.append(i + "\n");
+        }
+        for (int i = 0; i <= 30; i++) {
+            sb.append(histogram.get(i)+"\n");
         }
         printToFile(fileName, sb.toString());
     }
@@ -102,8 +122,8 @@ public class ProblematicDisciplins {
         //viewStatistic("all.txt", dds);
         //viewProblematic("problematic.txt", dds);
         //viewError("error.txt", dds);
-        viewSortedFailRate("sortedFailRate.txt", dds);
-        viewSortedFailRate("sortedFailRateWithZero.txt", dds);
+        viewSortedFailRate("sortedFailRate.txt", dds, false);
+        viewMarkHistogram("markHistogram.txt", dds);
 
     }
 
