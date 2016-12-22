@@ -72,6 +72,21 @@ public class ProblematicDisciplins {
         printToFile(fileName, sb.toString());
     }
 
+    private static void viewSortedBestRate(String fileName, List<DisciplinData> dds) {
+        List<DisciplinData> sorted = new ArrayList<DisciplinData> ();
+        StringBuilder sb = new StringBuilder();
+        for (DisciplinData d : dds) {
+            if (d.getMis().size() != 1) {
+                sorted.add(d);
+            }
+        }
+        Collections.sort(sorted, new BestRateComparatorSimple());
+        for (DisciplinData dd : sorted) {
+            sb.append(dd).append("bestRate="+dd.BestRate()+"\n\n");
+        }
+        printToFile(fileName, sb.toString());
+    }
+
     private static void viewMarkHistogram(String fileName, List<DisciplinData> dds) {
         Map<Integer, Integer> histogram = new HashMap<Integer, Integer>();
         for (int i = 0; i <= 30; i++) {
@@ -123,6 +138,7 @@ public class ProblematicDisciplins {
         //viewProblematic("problematic.txt", dds);
         //viewError("error.txt", dds);
         viewSortedFailRate("sortedFailRate.txt", dds, false);
+        viewSortedBestRate("sortedBestRate.txt", dds);
         viewMarkHistogram("markHistogram.txt", dds);
 
     }

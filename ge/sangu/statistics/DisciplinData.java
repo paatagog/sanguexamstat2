@@ -39,7 +39,25 @@ public class DisciplinData {
         return count;
     }
 
+    public double meanOfInterval(int min, int max)  {
+        int count = 0;
+        int total = 0;
+        for (MarkItem mi: mis) {
+            if (min <= mi.getMark() && mi.getMark() <= max) {
+                count++;
+                total += mi.getMark();
+            }
+        }
+        return (double)total/count;
+    }
+
     public double failRate(boolean includeZero) {
         return (double)countOfInterval(includeZero?0:1, 11) / mis.size();
+    }
+    public double BestRate() {
+        return (double)countOfInterval(25, 30) / mis.size();
+    }
+    public double BestMeanRate() {
+        return (double)meanOfInterval(25, 30) / mis.size();
     }
 }
